@@ -1,18 +1,18 @@
 
 # soundcloud-scraper API 
 
-A small replacement for the missing SoundCloud API. Gives you access to infos of playlists, users, songs and lets your download songs as mp3. No API key or user ID is needed. 
+A small replacement for the missing SoundCloud API. Gives you access to infos of playlists, users, songs and lets you download songs as mp3. No API key or user ID is needed. 
 Made with [express](https://github.com/expressjs/express) and [soundcloud-scraper](https://github.com/DevSnowflake/soundcloud-scraper). 
-It lets you get all the songs in a playlist instead the first 5 songs by scraping the missing songs form the SoundCloud Widget API with [jsdom](https://github.com/jsdom/jsdom).
+It lets you get all the songs in a playlist instead the first 5 songs by scraping the missing songs from the SoundCloud Widget API with [jsdom](https://github.com/jsdom/jsdom).
 
 ## Installation
 Clone this repo to your nodeserver 
 `git clone https://github.com/Dariush-Mehdiaraghi/soundcloud-scraper-api`
 and run `npm install && npm start`. 
 
-Or depoly directly on Heroku: 
+Or simply deploy directly to Heroku: 
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://github.com/Dariush-Mehdiaraghi/soundcloud-scraper-api)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Dariush-Mehdiaraghi/soundcloud-scraper-api)
 
 ## Usage
 
@@ -45,7 +45,7 @@ fetch("https://yourdomain.com/song?url=<SoundCloudURL>")
       })
       .catch(console.error)
 ```
-Streaming a song in your frontend application
+Streaming a song in your front-end application
 ```
 let audio = new Audio("https://yourdomain.com/songdl?url=<SoundCloudURL>")
 audio.play()
