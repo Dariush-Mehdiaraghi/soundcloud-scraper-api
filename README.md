@@ -70,7 +70,7 @@ fetch("https://yourdomain.com/playlist?url=<SoundCloudURL>")
 </p>
 </details>
 
-Getting infos of a user (username not url!)
+Getting a user (username not url!)
 ```
 fetch("https://yourdomain.com/user?name=<username>")
     .then((response) => response.json())
@@ -102,7 +102,7 @@ fetch("https://yourdomain.com/user?name=<username>")
 ```
 </p>
 </details>
-Getting infos of a song
+Getting a song
 
 ```
 fetch("https://yourdomain.com/song?url=<SoundCloudURL>")
@@ -208,7 +208,7 @@ fetch("https://yourdomain.com/song?url=<SoundCloudURL>")
 </p>
 </details>
 
-Streaming a song in your front-end application
+Streaming/downloading a song in your front-end application
 ```
 let audio = new Audio("https://yourdomain.com/songdl?url=<SoundCloudURL>")
 audio.play()
