@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const fetch = require('node-fetch');
 const SoundCloud = require("soundcloud-scraper");
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 const client = new SoundCloud.Client()
 const PORT = process.env.PORT || 3000;
 let APIkey
@@ -22,37 +24,31 @@ app.delete('/', (req, res) => {
 
 //https://soundcloudstream.herokuapp.com/playlist?url=<soundcloudURL>
 app.get('/playlist', (req, res) => {
-    https://api-widget.soundcloud.com/resolve?url=https://soundcloud.com/shelter12kollektiv/sets/tracks&format=json&client_id=TaTmd2ARXgnp20a7BQJwuZ8xGFbrYgz5
+    //https://api-widget.soundcloud.com/resolve?url=https://soundcloud.com/shelter12kollektiv/sets/tracks&format=json&client_id=TaTmd2ARXgnp20a7BQJwuZ8xGFbrYgz5
 
-    fetch(
-        "https://api-widget.soundcloud.com/resolve?url=" + req.query.url + "&format=json&client_id=" + APIkey
-    )
-        .then((playlist) => {
+    getJsonFromWidgetAPI(req.query.url)
+        .then(parsedJSON => {
+            let foundTracksPromises = parsedJSON.tracks.map(track => {
 
-            playlist.json()
-                .then(parsedJSON => {
-                    console.log("trackcount: ", parsedJSON.tracks.length);
-                    res.json(parsedJSON)
-                    console.log("🗒️ request for playlist:", req.query.url);
-                })
-                .catch((err) => console.log(err))
+                if (!track.title) {
+                    return getMissingTrack(track.id).then(foundTrack => {
+                        return foundTrack
+                    })
+                }
+                else {
+                    return track
+                }
+            })
+            Promise.all(foundTracksPromises).then((foundTracks) => {
+                parsedJSON.tracks = foundTracks
+                res.json(parsedJSON)
+                console.log("🗒️ request for playlist:", req.query.url);
+            })
+
         })
         .catch((err) => console.log(err))
-
-
-
-
-    // console.log("request for playlist: ", req.query.url, client.apiKey);
-    // console.log("APIkey: ", APIkey);
-    // client
-    //     .getPlaylist(
-    //         req.query.url
-    //     )
-    //     .then(async (playlist) => {
-    //         res.json(playlist);
-    //     })
-    //     .catch(console.error);
 })
+
 //https://soundcloudstream.herokuapp.com/trackdl?url=<soundcloudURL>
 app.get('/trackdl', (req, res) => {
 
@@ -85,8 +81,30 @@ app.get('/user', (req, res) => {
         .catch(console.error);
 })
 
+async function getMissingTrack(trackID) {
+    const raw = await fetch("https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/" + trackID)
+
+    const response = await raw.text()
+
+    const dom = new JSDOM(response);
+    const foundURL = dom.window.document.querySelector("link:nth-child(15)").href
+    console.log("🔗 scraped link:", foundURL);
+
+    const song = await getJsonFromWidgetAPI(foundURL)
+
+    return song
+}
 
 
 
 
+//https://api-widget.soundcloud.com/resolve?url=https://soundcloud.com/shelter12kollektiv/dariush-mjs-kassette&format=json&client_id=TaTmd2ARXgnp20a7BQJwuZ8xGFbrYgz5
+async function getJsonFromWidgetAPI(urlToSearch) {
+    const response = await fetch(
+        "https://api-widget.soundcloud.com/resolve?url=" + urlToSearch + "&format=json&client_id=" + APIkey
+    )
+   
+    const data = await response.json()
 
+    return data
+}
