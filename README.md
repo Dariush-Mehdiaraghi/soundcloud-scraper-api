@@ -12,7 +12,7 @@ and run `npm install && npm start`.
 
 Or depoly directly on Heroku: 
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://github.com/Dariush-Mehdiaraghi/soundcloud-scraper-api)
 
 ## Usage
 
