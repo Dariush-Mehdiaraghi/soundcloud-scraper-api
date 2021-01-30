@@ -1,13 +1,12 @@
 {
   "name": "soundcloud-scraper-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "A small replacement for the missing SoundCloud API",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
-  "author": "",
+  "author": "Dariush Mehdiaraghi",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",

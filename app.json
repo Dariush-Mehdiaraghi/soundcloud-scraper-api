@@ -1,0 +1,11 @@
+{
+    "name": "Soundcloud-Scraper API",
+    "description": "A small replacement for the missing SoundCloud API",
+    "repository": "https://github.com/Dariush-Mehdiaraghi/soundcloud-scraper-api",
+    "keywords": [
+        "node",
+        "express",
+        "soundcloud",
+        "scraper"
+    ]
+}
