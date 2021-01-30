@@ -31,6 +31,7 @@ app.get('/playlist', (req, res) => {
 
             playlist.json()
                 .then(parsedJSON => {
+                    console.log("trackcount: ", parsedJSON.tracks.length);
                     res.json(parsedJSON)
                     console.log("🗒️ request for playlist:", req.query.url);
                 })
