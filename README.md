@@ -1,5 +1,5 @@
 
-# soundcloud-scraper API 
+# soundcloud-scraper API ☁️
 
 A small replacement for the missing SoundCloud API. Gives you access to infos of playlists, users, songs and lets you download songs as mp3. No API key or user ID is needed. 
 Made with [express](https://github.com/expressjs/express) and [soundcloud-scraper](https://github.com/DevSnowflake/soundcloud-scraper). 
