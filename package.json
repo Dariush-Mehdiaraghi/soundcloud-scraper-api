@@ -10,8 +10,9 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "jsdom": "^16.4.0",
-    "node-fetch": "^2.6.1",
-    "soundcloud-scraper": "^4.0.3"
-  }
+    "jsdom": "^18.0.0",
+    "node-fetch": "^3.0.0",
+    "soundcloud-scraper": "^5.0.2"
+  },
+  "type": "module"
 }

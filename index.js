@@ -1,14 +1,15 @@
-const express = require('express')
+import express from 'express'
 const app = express()
-const fetch = require('node-fetch')
-const SoundCloud = require('soundcloud-scraper')
-const jsdom = require('jsdom')
+import fetch from 'node-fetch'
+import soundCloudScraper from 'soundcloud-scraper'
+const { Client, keygen } = soundCloudScraper
+import jsdom from 'jsdom'
 const { JSDOM } = jsdom
-const client = new SoundCloud.Client()
+const client = new Client()
 const PORT = process.env.PORT || 3000
 let APIkey
 
-SoundCloud.keygen().then(key => {
+keygen().then(key => {
     app.listen(PORT, () => console.log(`👂 listening on ${PORT}`))
     console.log("🔑 key generated:", key)
     APIkey = key
@@ -26,7 +27,6 @@ app.get('/playlist', (req, res) => {
     getJsonFromWidgetAPI(req.query.url)
         .then(parsedJSON => {
             let foundTracksPromises = parsedJSON.tracks.map(track => {
-
                 if (!track.title) {
                     return getMissingTrack(track.id).then(foundTrack => {
                         return foundTrack
@@ -94,7 +94,7 @@ async function getMissingTrack(songID) {
         const raw = await fetch("https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/" + songID)
         const response = await raw.text()
         const dom = new JSDOM(response)
-        const foundURL = dom.window.document.querySelector("link:nth-child(15)").href
+        const foundURL = [...dom.window.document.querySelectorAll("head > link")].find(el => el.rel == "canonical").href
         console.log("🔗 scraped link:", foundURL)
         const song = await getJsonFromWidgetAPI(foundURL)
         return song
