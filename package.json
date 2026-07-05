@@ -9,10 +9,10 @@
   "author": "Dariush Mehdiaraghi",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1",
-    "jsdom": "^18.0.0",
-    "node-fetch": "^3.0.0",
-    "soundcloud-scraper": "^5.0.2"
+    "express": "^5.2.1",
+    "jsdom": "^29.1.1",
+    "node-fetch": "^3.3.2",
+    "soundcloud-scraper": "^5.0.3"
   },
   "type": "module"
 }
