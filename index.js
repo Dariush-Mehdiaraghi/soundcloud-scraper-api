@@ -48,12 +48,10 @@ app.get('/playlist', (req, res) => {
 
 // Response: user info (e.g. for request: https://yourdomain.com/user?name=shetler12kollektiv)  <-- Username NOT URL!
 app.get('/user', (req, res) => {
-    client
-        .getUser(
-            req.query.name
-        ).then(async (playlist) => {
+    getJsonFromWidgetAPI(`https://soundcloud.com/${req.query.name}`)
+        .then(user => {
             console.log("👤 request for user:", req.query.name)
-            res.json(playlist)
+            res.json(user)
         })
         .catch(console.error)
 })
