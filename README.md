@@ -1,7 +1,7 @@
 
 # soundcloud-scraper API ☁️
 
-A small replacement for the missing SoundCloud API. Gives you access to infos of playlists, users, songs and lets you download songs as mp3. No API key or user ID is needed. 
+A small replacement for the missing SoundCloud API. Gives you access to infos of playlists, users and songs. No API key or user ID is needed. 
 Made with [express](https://github.com/expressjs/express) and [soundcloud-scraper](https://github.com/DevSnowflake/soundcloud-scraper). 
 It lets you get all the songs in a playlist instead of the first 5 songs by scraping the missing songs from the SoundCloud Widget API with [jsdom](https://github.com/jsdom/jsdom).
 
@@ -207,10 +207,4 @@ fetch("https://yourdomain.com/song?url=<SoundCloudURL>")
 ```
 </p>
 </details>
-
-Streaming/downloading a song in your front-end application
-```
-let audio = new Audio("https://yourdomain.com/songdl?url=<SoundCloudURL>")
-audio.play()
-```
 

@@ -2,10 +2,9 @@ import express from 'express'
 const app = express()
 import fetch from 'node-fetch'
 import soundCloudScraper from 'soundcloud-scraper'
-const { Client, keygen } = soundCloudScraper
+const { keygen } = soundCloudScraper
 import jsdom from 'jsdom'
 const { JSDOM } = jsdom
-const client = new Client()
 const PORT = process.env.PORT || 3000
 let APIkey
 
@@ -64,21 +63,6 @@ app.get('/song', (req, res) => {
         console.log("🎶 request for song:", req.query.url)
         res.json(song)
     })
-        .catch(console.error)
-})
-
-// Response: mp3 file (e.g. for request: /https://yourdomain.com/trackdl?url=https://soundcloud.com/shelter12kollektiv/dariush-mjs-kassette) 
-app.get('/songdl', (req, res) => {
-    client
-        .getSongInfo(
-            req.query.url
-        )
-        .then(async (song) => {
-            const stream = await song.downloadProgressive()
-            console.log("⬇️ request for download of:", req.query.url)
-            res.set('content-disposition', `attachment filename="${song.title}.mp3"`)
-            stream.pipe(res)
-        })
         .catch(console.error)
 })
 
